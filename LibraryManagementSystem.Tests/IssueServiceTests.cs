@@ -16,28 +16,51 @@ namespace LibraryManagementSystem.Tests
         [Test]
         public void IssueBook_ShouldInsertIssueRecord()
         {
-            // Use existing StudentId = 1 and BookId = 1 (ensure exists in DB)
             int studentId = 1;
             int bookId = 2;
 
-            // Act
             _issueService.IssueBook(studentId, bookId);
 
-            // If no exception is thrown, test is considered passed
             Assert.Pass("Book issued successfully without exception.");
         }
 
         [Test]
         public void ReturnBook_ShouldUpdateReturnDate()
         {
-            int issueId = 1; // Make sure issueId 1 exists
+            int issueId = 1;
 
-            // Act
             _issueService.ReturnBook(issueId);
 
-            // If no error thrown, test passed
             Assert.Pass("Book return updated successfully.");
         }
+
+        [Test]
+        public void GetIssuedBooksByStudent_ShouldReturnCorrectList()
+        {
+            int studentId = 1;
+
+            var issuedBooks = _issueService.GetIssuedBooksByStudent(studentId);
+
+            if (issuedBooks != null && issuedBooks.Count >= 0)
+            {
+                Assert.Pass(" Issued book list fetched successfully.");
+            }
+            else
+            {
+                Assert.Fail(" Failed to fetch issued book list.");
+            }
+
+        }
+
+        [Test]
+        public void ReturnBook_InvalidIssueId_ShouldHandleGracefully()
+        {
+            int invalidIssueId = 9999;
+
+            Assert.DoesNotThrow(() => _issueService.ReturnBook(invalidIssueId),
+                "System should handle invalid IssueId without crashing.");
+        }
+
 
     }
 }

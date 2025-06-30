@@ -35,14 +35,14 @@ CREATE TABLE IssueBooks (
     ReturnDate DATE NULL
 );
 
--- AUDIT LOGS TABLE
+/*-- AUDIT LOGS TABLE
 CREATE TABLE AuditLogs (
     LogId INT PRIMARY KEY IDENTITY,
     Action NVARCHAR(100),
     UserId INT,
     Timestamp DATETIME DEFAULT GETDATE(),
     Description NVARCHAR(255)
-);
+);*/
 
 -- Sample Admin and Student Login
 INSERT INTO Users (Username, Password, Role) VALUES 
@@ -60,16 +60,16 @@ INSERT INTO Students (Name, Email, ContactNumber) VALUES
 ('Ananya Rao', 'ananya@gmail.com', '9876543210'),
 ('Ravi Kumar', 'ravi.kumar@gmail.com', '9123456789');
 
--- Ananya issued SQL Essentials on June 15, hasn't returned yet
-INSERT INTO IssueBooks (StudentId, BookId, IssueDate, ReturnDate) 
-VALUES (1, 2, '2025-06-15', NULL);
+-- Sample IssueBooks
+INSERT INTO IssueBooks (StudentId, BookId, IssueDate, ReturnDate) VALUES 
+(1, 2, '2025-06-15', NULL),
+(2, 3, '2025-06-01', '2025-06-10');
 
--- Ravi issued Clean Code on June 1, returned on June 10
-INSERT INTO IssueBooks (StudentId, BookId, IssueDate, ReturnDate) 
-VALUES (2, 3, '2025-06-01', '2025-06-10');
+ALTER TABLE Users ADD StudentId INT NULL REFERENCES Students(StudentId);
 
 SELECT * FROM Users;
 SELECT * FROM Books;
 SELECT * FROM Students;
 SELECT * FROM IssueBooks;
+
 

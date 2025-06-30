@@ -1,6 +1,7 @@
-﻿using System;
+﻿using LibraryManagementSystem.Database;
+using LibraryManagementSystem.Models;
+using System;
 using System.Data.SqlClient;
-using LibraryManagementSystem.Database;
 
 namespace LibraryManagementSystem.Services
 {
@@ -20,21 +21,6 @@ namespace LibraryManagementSystem.Services
                 Console.WriteLine(" Book issued successfully.");
             }
         }
-        /*
-        public void ReturnBook(int issueId)
-        {
-            using (SqlConnection conn = DbConnection.GetConnection())
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE IssueBooks SET ReturnDate = @ReturnDate WHERE IssueId = @IssueId", conn);
-                cmd.Parameters.AddWithValue("@ReturnDate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@IssueId", issueId);
-
-                cmd.ExecuteNonQuery();
-                Console.WriteLine(" Book returned successfully.");
-            }
-        }
-        */
 
         public void ReturnBook(int issueId)
         {
@@ -92,6 +78,32 @@ namespace LibraryManagementSystem.Services
             }
         }
 
+        public List<IssueBook> GetIssuedBooksByStudent(int studentId)
+        {
+            List<IssueBook> issuedBooks = new List<IssueBook>();
+
+            using (SqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT * FROM IssueBooks WHERE StudentId = @StudentId", conn);
+                cmd.Parameters.AddWithValue("@StudentId", studentId);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    issuedBooks.Add(new IssueBook
+                    {
+                        IssueId = (int)reader["IssueId"],
+                        StudentId = (int)reader["StudentId"],
+                        BookId = (int)reader["BookId"],
+                        IssueDate = (DateTime)reader["IssueDate"],
+                        ReturnDate = reader["ReturnDate"] == DBNull.Value ? null : (DateTime?)reader["ReturnDate"]
+                    });
+                }
+            }
+
+            return issuedBooks;
+        }
 
     }
 }

@@ -168,3 +168,4 @@ C:\Users\Admin\source\repos\LibraryManagementSystemDB\LibraryManagementSystem.Te
 C:\Users\Admin\source\repos\LibraryManagementSystemDB\LibraryManagementSystem.Tests\bin\Debug\net8.0\LibraryManagementSystem.deps.json
 C:\Users\Admin\source\repos\LibraryManagementSystemDB\LibraryManagementSystem.Tests\bin\Debug\net8.0\LibraryManagementSystem.runtimeconfig.json
 C:\Users\Admin\source\repos\LibraryManagementSystemDB\LibraryManagementSystem.Tests\bin\Debug\net8.0\LibraryManagementSystem.exe
+C:\Users\Admin\source\repos\LibraryManagementSystemDB\LibraryManagementSystem.Tests\obj\Debug\net8.0\LibraryManagementSystem.Tests.sourcelink.json

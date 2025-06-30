@@ -11,8 +11,7 @@ namespace LibraryManagementSystem.Services
             using (SqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE Username = @username " +
-                    "AND Password = @password", conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE Username = @username AND Password = @password", conn);
                 cmd.Parameters.AddWithValue("@username", username);
                 cmd.Parameters.AddWithValue("@password", password);
 
@@ -23,11 +22,13 @@ namespace LibraryManagementSystem.Services
                     {
                         Username = reader["Username"].ToString(),
                         Password = reader["Password"].ToString(),
-                        Role = reader["Role"].ToString()
+                        Role = reader["Role"].ToString(),
+                        StudentId = reader["StudentId"] == DBNull.Value ? null : (int?)reader["StudentId"]
                     };
                 }
             }
             return null;
         }
+
     }
 }

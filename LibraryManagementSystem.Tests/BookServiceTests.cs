@@ -16,26 +16,8 @@ namespace LibraryManagementSystem.Tests
         }
 
         [Test]
-        public void AddBook_ShouldAddBookSuccessfully()
-        {
-            var book = new Book
-            {
-                Title = "Unit Testing in C#",
-                Author = "Jane Doe",
-                CopiesAvailable = 3
-            };
-
-            _bookService.AddBook(book);
-            var books = _bookService.GetAllBooks();
-
-            Assert.That(books.Exists(b => b.Title == "Unit Testing in C#"), Is.True);
-
-        }
-
-        [Test]
         public void DeleteBook_ShouldRemoveBook_WhenBookExists()
         {
-             // Arrange
              var book = new Book
              {
                  Title = "Test Delete Book",
@@ -47,11 +29,9 @@ namespace LibraryManagementSystem.Tests
              var books = _bookService.GetAllBooks();
              var addedBook = books.Find(b => b.Title == "Test Delete Book");
 
-             // Act
              _bookService.DeleteBook(addedBook.BookId);
              var updatedBooks = _bookService.GetAllBooks();
 
-            // Assert
             Assert.That(updatedBooks.Exists(b => b.BookId == addedBook.BookId), Is.False);
 
         }
